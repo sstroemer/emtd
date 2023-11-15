@@ -31,7 +31,7 @@ class EMTD:
     Example Usage:
         ```python    
         from emtd import EMTD
-           
+
         # Use `./tmpdir` to store intermediate results.
         data = EMTD("tmpdir")
 
@@ -61,6 +61,9 @@ class EMTD:
         """
         self._logger = logging.getLogger("emtd")
         self._results = dict()
+
+        if version == "latest":
+            self._logger.warning("Consider binding to a specific version of the 'technology-data'; consult 'Reproducability' in the README.md")
 
         if target_dir is None:
             self._logger.warning("Consider specifying 'target_dir' to properly re-use previous work during snakemake")
