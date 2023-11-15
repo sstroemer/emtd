@@ -5,6 +5,8 @@ description = "This projects provides as slim Python wrapper to access the 'tech
 license = "MIT"
 authors = ["sstroemer <stefan.stroemer@gmail.com>"]
 readme = "README.md"
+repository = "https://github.com/sstroemer/emtd"
+keywords = ["energy modeling", "technology data"]
 
 [tool.poetry.dependencies]
 python = ">=3.9"
