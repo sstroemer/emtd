@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "emtd"
-version = "0.1.0"
+version = "0.1.1"
 description = "This projects provides as slim Python wrapper to access the 'technology-data' data set / snakemake workflow, maintained by the PyPSA team."
 license = "MIT"
 authors = ["sstroemer <stefan.stroemer@gmail.com>"]
