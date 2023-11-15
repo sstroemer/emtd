@@ -6,7 +6,7 @@ This tool provides a slim Python wrapper to access the
 team.
 
 > 🚨 🚨 Please check the license of the [`technology-data` repo](https://github.com/PyPSA/technology-data), especially
-regarding the applicable licences of various input (and therefore output) data files. Additional info can maybe found
+regarding the applicable licences of various input (and therefore output) data files. Additional info can be found
 starting at [74](https://github.com/PyPSA/technology-data/issues/74) and
 [87](https://github.com/PyPSA/technology-data/pull/87). Be aware that this wrapper can in no way guarantee that the data
 being pulled from the repository, or the way that is being processed, or the code retrieved from the repository, or any
