@@ -39,6 +39,9 @@ from emtd import EMTD
 # Use `./tmpdir` to store intermediate results.
 data = EMTD(target_dir="tmpdir")
 
+# Get all available technologies in 2030.
+data.technologies(2030)
+
 # Get all available parameters for the technology "solar" in 2030.
 data.parameters(2030, "solar")
 
