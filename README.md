@@ -34,14 +34,16 @@ dependencies.
 Now you can run the following examplatory code:
 
 ```python
+from emtd import EMTD
+
 # Use `./tmpdir` to store intermediate results.
-emtd = EMTD(target_dir="tmpdir")
+data = EMTD(target_dir="tmpdir")
 
 # Get all available parameters for the technology "solar" in 2030.
-emtd.parameters(2030, "solar")
+data.parameters(2030, "solar")
 
 # Get the "lifetime" of "solar" in 2030.
-res = emtd.get(2030, "solar", "lifetime")
+res = data.get(2030, "solar", "lifetime")
 
 # Try out:
 res["value"]
@@ -55,7 +57,7 @@ specific version. Consult the [release page](https://github.com/PyPSA/technology
 then make sure to initialize using (e.g.):
 
 ```python
-emtd = EMTD(target_dir="tmpdir", version="v0.6.2")
+data = EMTD(target_dir="tmpdir", version="v0.6.2")
 ```
 
 Make sure to include the `v` in the version string. Passing `"latest"` will put you on the current latest version of the
@@ -66,7 +68,7 @@ to update.
 To change parameters in the [Snakemake](https://snakemake.readthedocs.io/en/stable/) workflow, pass a `dict` to `EMTD`:
 
 ```python
-emtd = EMTD(target_dir="tmpdir", params={"rate_inflation": 0.03})
+data = EMTD(target_dir="tmpdir", params={"rate_inflation": 0.03})
 ```
 
 This overwrites the defaults set by ["technology-data"](https://github.com/PyPSA/technology-data), or adds to it if the
@@ -75,6 +77,30 @@ respective setting is not specified there. Consult
 or hints at what can be changed. Also, consult their [documentation](https://technology-data.readthedocs.io/en/latest/).
 
 ## Common Errors
+
+```
+The current project's supported Python range (>=3.9,<4.0) is not compatible with some of the required packages Python requirement:
+  - scipy requires Python <3.13,>=3.9, so it will not be satisfied for Python >=3.13,<4.0
+```
+
+This, or similar errors, can occur if the `pyproject.toml` (or similar) specifies a too broad range of Python versions,
+like:
+
+```toml
+[tool.poetry.dependencies]
+python = "^3.9"
+```
+
+Changing that based on the proposed range (here `<3.13,>=3.9` from `scipy`) to:
+
+```toml
+[tool.poetry.dependencies]
+python = ">=3.9,<3.13"
+```
+
+will fix that.
+
+---
 
 ```
 subprocess.CalledProcessError: Command '['git', '-C', PosixPath('tmpdir'), 'pull']' returned non-zero exit status 1.

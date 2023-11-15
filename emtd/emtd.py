@@ -29,15 +29,17 @@ class EMTD:
                 Retrieves detailed data for a specific technology parameter in a given year.
 
     Example Usage:
-        ```python
+        ```python    
+        from emtd import EMTD
+           
         # Use `./tmpdir` to store intermediate results.
-        emtd = EMTD("tmpdir")
+        data = EMTD("tmpdir")
 
         # Get all available parameters for the technology "solar" in 2030.
-        emtd.parameters(2030, "solar")
+        data.parameters(2030, "solar")
 
         # Get the "lifetime" of "solar" in 2030.
-        res = emtd.get(2030, "solar", "lifetime")
+        res = data.get(2030, "solar", "lifetime")
 
         # Try out:
         res["value"]
