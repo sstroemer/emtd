@@ -6,3 +6,6 @@
 6. `poetry build`
 7. `poetry publish`
 8. (optional) tag the final commit in the repo, with the "v_._._" tag
+
+Remember to follow [Semantic Versioning](https://semver.org/) and
+[keep a changelog](https://keepachangelog.com/en/1.1.0/).
