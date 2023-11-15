@@ -7,7 +7,7 @@ authors = ["sstroemer <stefan.stroemer@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.13"
+python = ">=3.9"
 pandas = "<2.0.0"
 beautifulsoup4 = "^4.12.2"
 numpy = "^1.25.0"
