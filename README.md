@@ -1,6 +1,6 @@
 # Energy Modeling Technology Data
 
-This tool provides as slim Python wrapper to access the
+This tool provides a slim Python wrapper to access the
 ["technology-data"](https://github.com/PyPSA/technology-data) data set /
 [Snakemake](https://snakemake.readthedocs.io/en/stable/) workflow, maintained by the [PyPSA](https://github.com/PyPSA)
 team.
