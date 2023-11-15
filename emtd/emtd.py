@@ -27,6 +27,8 @@ class EMTD:
                 Retrieves the unique parameters for a given technology in a specific year.
         get(self, year: int, tech: str, param: str):
                 Retrieves detailed data for a specific technology parameter in a given year.
+        config(self, prop: str):
+                Retrieves a specific property from the Snakemake config that was used.
 
     Example Usage:
         ```python
@@ -66,6 +68,8 @@ class EMTD:
         """
         self._logger = logging.getLogger("emtd")
         self._results = dict()
+        self._params = params or dict()
+        self._config = dict()
 
         if version == "latest":
             self._logger.warning(
@@ -74,7 +78,7 @@ class EMTD:
 
         if target_dir is None:
             self._logger.warning("Consider specifying 'target_dir' to properly re-use previous work during snakemake")
-        self._prepare(Path(target_dir or tempfile.TemporaryDirectory().name), params or dict(), version)
+        self._prepare(Path(target_dir or tempfile.TemporaryDirectory().name), version)
 
     def technologies(self, year: int) -> list:
         """
@@ -140,13 +144,32 @@ class EMTD:
 
         return ret.iloc[0].to_dict()
 
-    def _prepare(self, target_dir: Path, params: dict, version: str) -> None:
+    def config(self, prop: str):
+        """
+        Retrieves a specific property from the Snakemake config that was used.
+
+        Args:
+            prop (str): The property.
+
+        Returns:
+            ?:  The value, can be None.
+        """
+        if prop not in self._config:
+            self._logger.warning("Property '%s' not set", prop)
+            return None
+        return self._config[prop]
+
+    def _prepare(self, target_dir: Path, version: str) -> None:
         self._logger.info("Using temporary directory '%s' to manage 'technology-data'", target_dir)
 
         self._clone_repository("https://github.com/PyPSA/technology-data.git", target_dir, version)
 
         with open(target_dir / "__config.yaml", "w") as f:
-            yaml.dump(params, f)
+            yaml.dump(self._params, f)
+
+        with open(target_dir / "config.yaml", "r") as f:
+            self._config = yaml.safe_load(f)
+            self._config.update(self._params)
 
         self._run_snakemake(target_dir)
 
