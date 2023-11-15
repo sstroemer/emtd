@@ -29,7 +29,7 @@ class EMTD:
                 Retrieves detailed data for a specific technology parameter in a given year.
 
     Example Usage:
-        ```python    
+        ```python
         from emtd import EMTD
 
         # Use `./tmpdir` to store intermediate results.
@@ -48,7 +48,9 @@ class EMTD:
         ```
     """
 
-    def __init__(self, target_dir: Optional[str] = None, params: Optional[dict] = None, version: str = "latest") -> None:
+    def __init__(
+        self, target_dir: Optional[str] = None, params: Optional[dict] = None, version: str = "latest"
+    ) -> None:
         """
         Initializes the EMTD object with an optional target directory and parameters.
 
@@ -63,7 +65,9 @@ class EMTD:
         self._results = dict()
 
         if version == "latest":
-            self._logger.warning("Consider binding to a specific version of the 'technology-data'; consult 'Reproducability' in the README.md")
+            self._logger.warning(
+                "Consider binding to a specific version of the 'technology-data'; consult 'Reproducability' in the README.md"
+            )
 
         if target_dir is None:
             self._logger.warning("Consider specifying 'target_dir' to properly re-use previous work during snakemake")
@@ -159,13 +163,20 @@ class EMTD:
             if version == "latest":
                 subprocess.run(["git", "clone", repo_url, target_dir], check=True, capture_output=True, text=True)
             else:
-                subprocess.run(["git", "clone", repo_url, "--branch", version, target_dir], check=True, capture_output=True, text=True)
+                subprocess.run(
+                    ["git", "clone", repo_url, "--branch", version, target_dir],
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                )
         else:
             self._logger.info("Updating 'technology-data'")
             if version == "latest":
                 subprocess.run(["git", "-C", target_dir, "pull"], check=True, capture_output=True, text=True)
             else:
-                subprocess.run(["git", "-C", target_dir, "pull", repo_url, version], check=True, capture_output=True, text=True)
+                subprocess.run(
+                    ["git", "-C", target_dir, "pull", repo_url, version], check=True, capture_output=True, text=True
+                )
 
     def _run_snakemake(self, target_dir: Path) -> None:
         self._logger.info("Starting snakemake workflow")
