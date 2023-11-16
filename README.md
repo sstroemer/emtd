@@ -12,6 +12,8 @@ starting at [74](https://github.com/PyPSA/technology-data/issues/74) and
 being pulled from the repository, or the way that is being processed, or the code retrieved from the repository, or any
 related information is in accordance with applicable licenses.
 
+> 🎓 🎓 This is a first working version, expect a lot of changes, and a lot of missing functionality!
+
 ## Getting Started
 
 The following example assumes that you are using `conda` to create your environment, and `poetry` to manage your
