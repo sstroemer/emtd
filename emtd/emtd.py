@@ -1,4 +1,5 @@
 import os
+import shutil
 import re
 import logging
 from typing import Optional
@@ -79,6 +80,8 @@ class EMTD:
 
         if target_dir is None:
             self._logger.warning("Consider specifying 'target_dir' to properly re-use previous work during snakemake")
+            self._logger.warning("Temporary directories are not automatically deleted and can take up significant space")
+
         self._prepare(Path(target_dir or tempfile.TemporaryDirectory().name), version)
 
     def technologies(self, year: int) -> list:
@@ -165,17 +168,32 @@ class EMTD:
 
         self._clone_repository("https://github.com/PyPSA/technology-data.git", target_dir, version)
 
+        fn_cfg = target_dir / "_emtd_config.yaml"
+
         with open(target_dir / "config.yaml", "r") as f:
             self._config = yaml.safe_load(f)
             self._config.update(self._params)
-            with open(target_dir / "__config.yaml", "w") as f:
-                yaml.dump(self._config, f)
+
+        if fn_cfg.is_file():
+            with open(fn_cfg, "r") as f:
+                last_cfg = yaml.safe_load(f)
+                if self._config == last_cfg:
+                    self._logger.info("Config did not change, re-using existing data and outputs")
+                else:
+                    # Some parameters have changed, re-run.
+                    self._logger.info("Parameters changed; removing current 'technology-data' outputs")
+                    shutil.rmtree(target_dir / "outputs")
+        elif not self._params:
+            self._logger.warning("You are potentially using pre-built outputs directly from the 'technology-data' repository; consider specifying 'params' to ensure results are based on assumptions that you know of")
+        else:
+            # No `_emtd_config.yaml` found, but params passed, re-run.
+            self._logger.info("Removing 'technology-data' outputs that were potentially built with different parameters")
+            shutil.rmtree(target_dir / "outputs")
+
+        with open(fn_cfg, "w") as f:
+            yaml.dump(self._config, f)
 
         self._run_snakemake(target_dir)
-
-        self._logger.info("Cleaning up temporary config file")
-        os.remove(target_dir / "__config.yaml")
-        self._logger.warning("The temporary directoy is not being deleted and could take up significant space")
 
         self._logger.info("Parsing resulting outputs of snakemake workflow")
         self._results = {
@@ -210,7 +228,7 @@ class EMTD:
 
         os.chdir(target_dir)
         self._snakemake_output = subprocess.run(
-            ["snakemake", "-j1", "--configfile", "__config.yaml"], capture_output=True, text=True
+            ["snakemake", "-j1", "--configfile", "_emtd_config.yaml"], capture_output=True, text=True
         )
         os.chdir(current_working_directory)
 
