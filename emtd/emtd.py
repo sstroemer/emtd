@@ -80,7 +80,9 @@ class EMTD:
 
         if target_dir is None:
             self._logger.warning("Consider specifying 'target_dir' to properly re-use previous work during snakemake")
-            self._logger.warning("Temporary directories are not automatically deleted and can take up significant space")
+            self._logger.warning(
+                "Temporary directories are not automatically deleted and can take up significant space"
+            )
 
         self._prepare(Path(target_dir or tempfile.TemporaryDirectory().name), version)
 
@@ -184,10 +186,14 @@ class EMTD:
                     self._logger.info("Parameters changed; removing current 'technology-data' outputs")
                     shutil.rmtree(target_dir / "outputs")
         elif not self._params:
-            self._logger.warning("You are potentially using pre-built outputs directly from the 'technology-data' repository; consider specifying 'params' to ensure results are based on assumptions that you know of")
+            self._logger.warning(
+                "You are potentially using pre-built outputs directly from the 'technology-data' repository; consider specifying 'params' to ensure results are based on assumptions that you know of"
+            )
         else:
             # No `_emtd_config.yaml` found, but params passed, re-run.
-            self._logger.info("Removing 'technology-data' outputs that were potentially built with different parameters")
+            self._logger.info(
+                "Removing 'technology-data' outputs that were potentially built with different parameters"
+            )
             shutil.rmtree(target_dir / "outputs")
 
         with open(fn_cfg, "w") as f:
