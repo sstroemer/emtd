@@ -114,3 +114,13 @@ subprocess.CalledProcessError: Command '['git', '-C', PosixPath('tmpdir'), 'pull
 This error indicates an error during executing `git pull`. If you've previously used a `target_dir = "tmpdir` and
 pulled, e.g., `version="v0.6.1"`, and are now using `EMTD(target_dir="tmpdir")` (without version), the pull will fail;
 make sure to stick to one version, or use a different `target_dir` for managing different versions.
+
+## Developing `emtd`
+
+This is a rough outline of how to get started with developing `emtd`:
+
+1. Clone this repository: `git clone https://github.com/sstroemer/emtd.git`.
+2. Create a new environment: `uv venv`.
+3. Activate the environment: `source .venv/bin/activate`.
+4. Install the dependencies: `uv sync`.
+5. If you are using VSCode, PyCharm, etc., select `.venv/bin/python` as the interpreter.
