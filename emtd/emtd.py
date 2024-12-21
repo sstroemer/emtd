@@ -70,6 +70,7 @@ class EMTD:
         self._results = dict()
         self._params = params or dict()
         self._config = dict()
+        self._snakemake_output = None
 
         if version == "latest":
             self._logger.warning(
@@ -207,7 +208,9 @@ class EMTD:
         self._logger.info("Starting snakemake workflow")
         current_working_directory = os.getcwd()
         os.chdir(target_dir)
-        subprocess.run(["snakemake", "-j1", "--configfile", "__config.yaml"], capture_output=True, text=True)
+        self._snakemake_output = subprocess.run(
+            ["snakemake", "-j1", "--configfile", "__config.yaml"], capture_output=True, text=True
+        )
         os.chdir(current_working_directory)
         self._logger.info("Snakemake workflow done")
 
