@@ -207,12 +207,19 @@ class EMTD:
     def _run_snakemake(self, target_dir: Path) -> None:
         self._logger.info("Starting snakemake workflow")
         current_working_directory = os.getcwd()
+
         os.chdir(target_dir)
         self._snakemake_output = subprocess.run(
             ["snakemake", "-j1", "--configfile", "__config.yaml"], capture_output=True, text=True
         )
         os.chdir(current_working_directory)
-        self._logger.info("Snakemake workflow done")
+
+        if self._snakemake_output.returncode != 0:
+            self._logger.error("Snakemake workflow failed")
+            self._logger.error("Snakemake stdout: %s", self._snakemake_output.stdout)
+            self._logger.error("Snakemake stderr: %s", self._snakemake_output.stderr)
+        else:
+            self._logger.info("Snakemake workflow successful")
 
     def _list_results(self, target_dir: Path, prefix: str) -> list:
         years = []
