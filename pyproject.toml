@@ -1,34 +1,39 @@
-[tool.poetry]
+[project]
 name = "emtd"
 version = "0.2.0"
+authors = [
+    {name = "sstroemer", email = "stefan.stroemer@gmail.com"},
+]
+license = {text = "MIT"}
+requires-python = ">=3.9,<3.13"
 description = "This projects provides as slim Python wrapper to access the 'technology-data' data set / snakemake workflow, maintained by the PyPSA team."
-license = "MIT"
-authors = ["sstroemer <stefan.stroemer@gmail.com>"]
 readme = "README.md"
-repository = "https://github.com/sstroemer/emtd"
-keywords = ["energy modeling", "technology data"]
+keywords = [
+    "energy modeling",
+    "technology data",
+]
+dependencies = [
+    "pandas<2.0.0",
+    "beautifulsoup4<5.0.0,>=4.12.2",
+    "numpy<2.0.0,>=1.25.0",
+    "xlrd<3.0.0,>=2.0.1",
+    "scipy<2.0.0,>=1.11.3",
+    "packaging<24.0,>=23.2",
+    "openpyxl<=3.0.9",
+    "snakemake<8.0.0,>=7.32.4",
+    "currencyconverter<1.0.0,>=0.17.13",
+    "tabula-py<3.0.0,>=2.8.2",
+    "pathlib<2.0.0,>=1.0.1",
+    "pyyaml<7.0.0,>=6.0.1",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.9"
-pandas = "<2.0.0"
-beautifulsoup4 = "^4.12.2"
-numpy = "^1.25.0"
-xlrd = "^2.0.1"
-scipy = "^1.11.3"
-packaging = "^23.2"
-openpyxl = "<=3.0.9"
-snakemake = "^7.32.4"
-currencyconverter = "^0.17.13"
-tabula-py = "^2.8.2"
-pathlib = "^1.0.1"
-pyyaml = "^6.0.1"
+[dependency-groups]
+dev = [
+    "ruff>=0.8.4",
+]
 
-[tool.poetry.group.dev.dependencies]
-black = "^23.11.0"
-
-[tool.black]
+[tool.ruff]
 line-length = 120
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[project.urls]
+repository = "https://github.com/sstroemer/emtd"
