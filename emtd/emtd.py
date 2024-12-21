@@ -164,12 +164,11 @@ class EMTD:
 
         self._clone_repository("https://github.com/PyPSA/technology-data.git", target_dir, version)
 
-        with open(target_dir / "__config.yaml", "w") as f:
-            yaml.dump(self._params, f)
-
         with open(target_dir / "config.yaml", "r") as f:
             self._config = yaml.safe_load(f)
             self._config.update(self._params)
+            with open(target_dir / "__config.yaml", "w") as f:
+                yaml.dump(self._config, f)
 
         self._run_snakemake(target_dir)
 
