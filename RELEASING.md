@@ -1,12 +1,13 @@
-1. run `black emtd/`
-2. commit & push everything
-3. `poetry version ___` (major, minor, patch)
-4. change the version in `emtd/__init__.py`
-5. Update CHANGELOG.md
-6. commit & push "prep for v_._._"
-7. `poetry build`
-8. `poetry publish`
-9. (optional) tag the final commit in the repo, with the "v_._._" tag
+# Releasing
+
+To release a new version of `emtd`, follow these steps:
+
+1. Run `ruff format`
+2. Commit & push everything
+3. Update the package's version in `pyproject.toml`
+4. Update CHANGELOG.md
+5. Commit & push `prep for v_._._` (versio & changelog changes)
+6. [Trigger a new release on GitHub](https://github.com/sstroemer/emtd/releases/new)
 
 Remember to follow [Semantic Versioning](https://semver.org/) and
 [keep a changelog](https://keepachangelog.com/en/1.1.0/).
