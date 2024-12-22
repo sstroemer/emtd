@@ -1,5 +1,9 @@
 # Energy Modeling Technology Data
 
+[![PyPI - Version](https://img.shields.io/pypi/v/emtd)](https://pypi.org/project/emtd/)
+[![License](https://img.shields.io/github/license/sstroemer/emtd)](LICENSE)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+
 This tool provides a slim Python wrapper to access the
 ["technology-data"](https://github.com/PyPSA/technology-data) data set /
 [Snakemake](https://snakemake.readthedocs.io/en/stable/) workflow, maintained by the [PyPSA](https://github.com/PyPSA)
@@ -122,7 +126,7 @@ The current project's supported Python range (>=3.9,<4.0) is not compatible with
 ```
 
 This, or similar errors, can occur if the `pyproject.toml` (or similar) specifies a too broad range of Python versions,
-like:
+like for example if you are using `poetry` and have:
 
 ```toml
 [tool.poetry.dependencies]
