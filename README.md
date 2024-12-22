@@ -91,6 +91,16 @@ Make sure to include the `v` in the version string. Passing `"latest"` will put 
 technology data repository. Be aware that this can change anytime, and the next time you initialize `emtd`, it will try
 to update.
 
+## Logging
+
+To get more information about what is happening, you can change the default logging level, by adding the following code:
+
+```python
+import logging
+
+logging.basicConfig(level=logging.INFO)
+```
+
 ## Configuring the Snakemake workflow
 
 To change parameters in the [Snakemake](https://snakemake.readthedocs.io/en/stable/) workflow, pass a `dict` to `EMTD`:
@@ -147,3 +157,14 @@ This is a rough outline of how to get started with developing `emtd`:
 3. Activate the environment: `source .venv/bin/activate`.
 4. Install the dependencies: `uv sync`.
 5. If you are using VSCode, PyCharm, etc., select `.venv/bin/python` as the interpreter.
+
+Depending on how you work with it, consider using `uv pip install -e .`.
+
+### Updating packages
+
+Currently the proposed way is:
+
+```shell
+uv lock --upgrade
+uv sync
+```
