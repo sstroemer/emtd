@@ -12,26 +12,47 @@ starting at [74](https://github.com/PyPSA/technology-data/issues/74) and
 being pulled from the repository, or the way that is being processed, or the code retrieved from the repository, or any
 related information is in accordance with applicable licenses.
 
-> 🎓 🎓 This is a first working version, expect a lot of changes, and a lot of missing functionality!
-
 ## Getting Started
 
-The following example assumes that you are using `conda` to create your environment, and `poetry` to manage your
-dependencies. Other ways should work in a similar fashion.
+### In an existing environment
 
-Create an environment (skip if adding to an existing one; choose whatever Python version you want to use), installing
-`poetry` (skip if using a global installation or if you are already using `poetry`), initializing your `pyproject.toml`
-(consider also using `poetry new` instead of `poetry init` when starting a project), and then add `emtd` to your
-dependencies.
+Use the tool of your choice, for example `uv`, to add `emtd` to your environment:
 
 ```shell
-(base) $ conda create -n yourenvname python=3.11 -y
-(base) $ conda activate yourenvname
-
-(yourenvname) $ pip install poetry
-(yourenvname) $ poetry init
-(yourenvname) $ poetry add emtd
+uv add emtd
 ```
+
+### In a new environment
+
+The following example assumes that you are using `uv`. Other ways should work in a similar fashion.
+
+First setup a new environment:
+
+```shell
+uv venv
+```
+
+Then activate it:
+
+**Windows:**
+
+```shell
+.venv\Scripts\activate
+```
+
+**Linux:**
+
+```shell
+source .venv/bin/activate
+```
+
+And finally add `emtd` to your environment:
+
+```shell
+uv add emtd
+```
+
+### Basic usage
 
 Now you can run the following examplatory code:
 
@@ -56,7 +77,8 @@ res["unit"]
 res["source"]
 ```
 
-## Reproducability
+## Reproducibility
+
 To make sure everyone using your code will get the same results from `emtd`, it is advised to fix the data set to a 
 specific version. Consult the [release page](https://github.com/PyPSA/technology-data/releases) for available versions,
 then make sure to initialize using (e.g.):
@@ -70,6 +92,7 @@ technology data repository. Be aware that this can change anytime, and the next 
 to update.
 
 ## Configuring the Snakemake workflow
+
 To change parameters in the [Snakemake](https://snakemake.readthedocs.io/en/stable/) workflow, pass a `dict` to `EMTD`:
 
 ```python
@@ -83,7 +106,7 @@ or hints at what can be changed. Also, consult their [documentation](https://tec
 
 ## Common Errors
 
-```
+```console
 The current project's supported Python range (>=3.9,<4.0) is not compatible with some of the required packages Python requirement:
   - scipy requires Python <3.13,>=3.9, so it will not be satisfied for Python >=3.13,<4.0
 ```
@@ -107,7 +130,7 @@ will fix that.
 
 ---
 
-```
+```console
 subprocess.CalledProcessError: Command '['git', '-C', PosixPath('tmpdir'), 'pull']' returned non-zero exit status 1.
 ```
 
