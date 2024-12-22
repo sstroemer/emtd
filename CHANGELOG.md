@@ -1,5 +1,11 @@
 # Change Log
 
+## [0.3.1] - 2024-12-22
+
+### Fixed
+
+- `__version__` was not correctly set in the package
+
 ## [0.3.0] - 2024-12-21
 
 ### Added
